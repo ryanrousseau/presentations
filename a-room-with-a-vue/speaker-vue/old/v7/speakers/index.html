@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Speaker Vue</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../main.css">
+    </head>
+    <body>
+        <div id="app">
+            <sv-header v-bind:conference="conference"></sv-header>
+
+            <main>
+                <sv-speaker-details v-bind:speaker="speaker"></sv-speaker-details>
+            </main>
+
+            <sv-footer></sv-footer>
+        </div>
+
+        <script src="../../main.js"></script>
+        <script src="/presentations/js/vue.min.js"></script>
+        <script src="../../components.js"></script>
+        
+        <script type="text/javascript">
+            var speakerId = (window.location.hash) ? window.location.hash.split("#")[1] : '';
+            var speaker = data.speakers.find((speaker) => speaker.id === speakerId);
+            var sessionIds = speaker.sessions;
+            speaker.sessions = data.sessions.filter((session) => sessionIds.indexOf(session.id) > -1);
+            
+            console.log(speaker);
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    'speaker': speaker
+                },
+            });
+    </script>
+    </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Super Conf - Add Session</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/presentations/templates/phantom/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/presentations/templates/phantom/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+        <div id="wrapper">
+            <!-- Header -->
+            <header id="header">
+                <sv-header-v1 v-bind:header="header" v-bind:site="site"></sv-header-v1>
+            </header>
+
+            <!-- Menu -->
+            <div id="menu-div">
+                <sv-menu v-bind:site="site"></sv-menu>
+            </div>
+
+            <!-- Main -->
+            <div id="main">
+                <div class="inner">
+                    <h1>Add a session</h1>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <input v-model="session.id" type="text" name="id" id="title" placeholder="ID" autofocus />
+                        </div>
+                    </div>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <input v-model="session.title" type="text" name="title" id="title" placeholder="Title" />
+                        </div>
+                    </div>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <select v-model="session.speakerId" name="speaker" id="speaker">
+                                <option value="">- Speaker -</option>
+                                <option v-for="s in speakers" v-bind:value="s.id">
+                                    {{ s.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <input v-model="session.blurb" type="text" name="blurb" id="blurb" placeholder="Blurb" />
+                        </div>
+                    </div>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <input v-model="session.time" type="text" name="time" id="time" placeholder="Time" />
+                        </div>
+                    </div>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <textarea v-model="session.description" name="description" id="description" placeholder="Enter the description" rows="6"></textarea>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-medium">
+                            <ul class="actions">
+                                <li><a v-on:click="saveSession" class="button primary">Save</a></li>
+                                <li><a v-on:click="clearSession" class="button">Clear</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer id="footer">
+                <sv-footer></sv-footer>
+            </footer>
+        </div>
+
+		<!-- Scripts -->
+        <script src="/presentations/js/vue.min.js"></script>
+        <script src="../../../components.js"></script>
+        <script src="../../../main.js"></script>
+        <script type="text/javascript">
+            var site = data.createSite('v7');
+            var emptySession = {
+                id: '',
+                title: '',
+                speakerId: '',
+                blurb: '',
+                time: ''
+            }
+
+            var header = new Vue({
+                el: '#header',
+                data: {
+                    "header": {
+                        "title": "Super Conf",
+                        "logo": "/presentations/templates/phantom/images/logo.svg"
+                    },
+                    "site": site
+                }
+            });
+
+            var menu = new Vue({
+                el: '#menu-div',
+                data: {
+                    "site": site
+                }
+            });
+
+            var footer = new Vue({
+                el: '#footer'
+            });
+
+            var main = new Vue({
+                el: '#main',
+                data: {
+                    session: Object.assign({}, emptySession),
+                    speakers: data.speakers,
+                    site: site
+                },
+                methods: {
+                    clearSession: function() {
+                        this.session = Object.assign({}, emptySession);
+                    },
+                    saveSession: function() {
+                        var session = JSON.parse(JSON.stringify(this.session));
+                        data.addSession(session);
+                        this.session = Object.assign({}, emptySession);
+                    }
+                }
+            });
+        </script>
+        <script src="/presentations/templates/phantom/assets/js/jquery.min.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/browser.min.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/breakpoints.min.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/util.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/main.js"></script>
+    </body>
+</html>

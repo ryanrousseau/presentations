@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Speaker Vue</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../main.css">
+    </head>
+    <body>
+        <div id="app">
+            <sv-header v-bind:conference="conference"></sv-header>
+
+            <main>
+                <sv-speaker-list v-bind:speakers="speakers"></sv-speaker-list>
+            </main>
+
+            <sv-footer></sv-footer>
+        </div>
+
+        <script src="../main.js"></script>
+        <script src="/presentations/js/vue.min.js"></script>
+        <script src="../components.js"></script>
+        
+        <script type="text/javascript">
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    'conference': data.conference,
+                    'speakers': data.speakers
+                }
+            });
+    </script>
+    </body>
+</html>

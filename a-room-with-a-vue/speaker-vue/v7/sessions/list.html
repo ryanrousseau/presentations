@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Super Conf - Sessions</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/presentations/templates/phantom/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/presentations/templates/phantom/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+        <div id="wrapper">
+            <!-- Header -->
+            <header id="header">
+                <sv-header-v1 v-bind:header="header" v-bind:site="site"></sv-header-v1>
+            </header>
+
+            <!-- Menu -->
+            <div id="menu-div">
+                <sv-menu v-bind:site="site"></sv-menu>
+            </div>
+
+            <!-- Main -->
+            <div id="main">
+                <div class="inner">
+                    <section class="tiles">
+                        <template v-for="session in sessions">
+                            <sv-session-tile v-bind:session="session" v-bind:speaker="session.speaker" v-bind:site="site"></sv-session-tile>
+                        </template>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer id="footer">
+                <sv-footer></sv-footer>
+            </footer>
+        </div>
+
+		<!-- Scripts -->
+        <script src="/presentations/js/vue.min.js"></script>
+        <script src="../../components.js"></script>
+        <script src="../../main.js"></script>
+        <script type="text/javascript">
+            var site = data.createSite('v7');
+
+            var header = new Vue({
+                el: '#header',
+                data: {
+                    "header": {
+                        "title": "Super Conf",
+                        "logo": "/presentations/templates/phantom/images/logo.svg"
+                    },
+                    "site": site
+                }
+            });
+
+            var menu = new Vue({
+                el: '#menu-div',
+                data: {
+                    "site": site
+                }
+            });
+
+            var footer = new Vue({
+                el: '#footer'
+            });
+
+            var main = new Vue({
+                el: '#main',
+                created() {
+                    this.sessions = data.sessions.map((s) => {
+                        var session = Object.assign({}, s);
+                        session.speaker = data.speakers.find((speaker) => speaker.id === session.speakerId);
+
+                        return session;
+                    });
+
+                    this.site = site;
+                }
+            });
+        </script>
+        <script src="/presentations/templates/phantom/assets/js/jquery.min.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/browser.min.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/breakpoints.min.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/util.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/main.js"></script>
+    </body>
+</html>

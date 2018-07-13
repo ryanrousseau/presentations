@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Speaker Vue</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../main.css">
+    </head>
+    <body>
+        <div id="app">
+            <sv-header v-bind:conference="conference"></sv-header>
+
+            <main>
+                <h3>Add Speaker</h3>
+                <div><input type="text" placeholder="Name" v-model="speaker.name"/></div>
+                <div><input type="text" placeholder="Twitter Handle" v-model="speaker.twitter" /></div>
+                <div><textarea rows="4" placeholder="Bio" v-model="speaker.bio"></textarea></div>
+                <button v-on:click="addSpeaker">Submit</button>
+            </main>
+
+            <sv-footer></sv-footer>
+        </div>
+
+        <script src="../../main.js"></script>
+        <script src="/presentations/js/vue.min.js"></script>
+        <script src="../../components.js"></script>
+        
+        <script type="text/javascript">
+            var createSpeaker = () => {
+                return {
+                    'name': '',
+                    'bio': '',
+                    'twitter': ''
+                };
+            };
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    'conference': data.conference,
+                    'speaker': createSpeaker()
+                },
+                methods: {
+                    'addSpeaker': function (event) {
+                        var speaker = { ... this.speaker };
+                        data.addSpeaker(speaker);
+                        this.speaker = createSpeaker();
+                    }
+                }
+            });
+    </script>
+    </body>
+</html>

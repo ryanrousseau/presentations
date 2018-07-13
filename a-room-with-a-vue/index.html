@@ -1,0 +1,1174 @@
+<html>
+	<head>
+        <title>A Room With a Vue</title>
+		<link rel="stylesheet" href="/presentations/js/revealjs/css/reveal.css">
+		<link rel="stylesheet" href="/presentations/js/revealjs/css/theme/black.css">
+        <link rel="stylesheet" href="/presentations/js/revealjs/lib/css/zenburn.css">
+        <style type="text/css">
+            body {
+                background: url( 'img/background.jpg' ) no-repeat center center fixed; 
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+            a {
+                color: white !important;
+                text-decoration: underline !important;
+            }
+
+            .reveal pre {
+                box-shadow: 0 0 0 0 !important;
+            }
+
+            .button {
+                background-color: #8dcffc;
+                border: none;
+                color: black;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                border-radius: 5px;
+
+                animation-name: pulse_animation;
+                animation-duration: 5000ms;
+                transform-origin: 70% 70%;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            .input {
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 5px;
+            }
+
+            @keyframes pulse_animation {
+                0% { transform: scale(1); }
+                30% { transform: scale(1); }
+                40% { transform: scale(1.08); }
+                50% { transform: scale(1); }
+                60% { transform: scale(1); }
+                70% { transform: scale(1.05); }
+                80% { transform: scale(1); }
+                100% { transform: scale(1); }
+            }
+
+            .nostyle {
+                box-shadow: none !important;
+                border: 0 !important;
+                background: transparent !important;
+            }
+        </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section>
+                    <h1>A Room with a Vue</h1>
+                    <h3>A beginner's dive into Vue.js</h3>
+                </section>
+
+                <section>
+                    <h3><a href="https://twitter.com/ryanrousseau" target="_blank">@ryanrousseau</a></h3>
+                    <p><small>Solution Architect @ <a href="https://octopus.com" target="_blank">Octopus Deploy</a></small></p>
+                    <p><small>Vue.js Beginner</small></p>
+                </section>
+
+                <section>
+                    <h2>Links</h2>
+                    <p><a href="https://ryanrousseau.com/presentations/a-room-with-a-vue/" target="_blank">https://ryanrousseau.com/presentations/a-room-with-a-vue/</a></p>
+                    <p><a href="https://github.com/ryanrousseau/presentations/a-room-with-a-vue/" target="_blank">https://github.com/ryanrousseau/presentations/a-room-with-a-vue/</a></p>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>What is Vue.js?</h2>
+                        <img class="nostyle" src="img/vue.png"></img>
+                    </section>
+                    <section>
+                        <p>Vue is a <strong>progressive framework</strong> for building user interfaces.</p>
+                    </section>
+                    <section>
+                        <p>Vue is designed from the ground up to be incrementally adoptable. </p>
+                    </section>
+                    <section>
+                        <p>The core library is focused on the view layer only, and is easy to pick up and integrate with other libraries or existing projects.</p>
+                    </section>
+                    <section>
+                        <p>Vue is also perfectly capable of powering sophisticated Single-Page Applications when used in combination with modern tooling and supporting libraries.</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Why Vue.js?</h2>
+                    </section>
+                    <section>
+                        <h2>Approachable</h2>
+                        <p>Already know HTML, CSS, and JavaScript?</p>
+                        <p>You're ready to start!</p>
+                    </section>
+                    <section>
+                        <h2>Versatile</h2>
+                        <p>As much or as little as you want</p>
+                    </section>
+                    <section>
+                        <h2>Performant</h2>
+                        <p>Small core library - 20KB min+gzip</p>
+                        <p>Virtual DOM makes page updates fast</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>What about React, Angular, Ember, etc?</h2>
+                    </section>
+                    <section>
+                        <p>It really comes down to preference.</p>
+                    </section>
+                    <section>
+                        <p>Do you like fully-featured, opiniated frameworks?</p>
+                    </section>
+                    <section>
+                        <p>Do you like JSX?</p>
+                    </section>
+                    <section>
+                        <p>Do you have time for the learning curve?</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>My reasons for choosing Vue.js</h2>
+                    </section>
+                    <section>
+                        <p>I wanted something fast in both performance and time to be productive.</p>
+                    </section>
+                    <section>
+                        <p>I really only wanted the templating and data binding.</p>
+                    </section>
+                    <section>
+                        <p>It reminds me of Knockout.</p>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Let's learn the basics!</h2>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Declarative Rendering</h2>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div id="ex1"&gt;
+                                    {{ text }}
+                                &lt;/div&gt;
+                            </code>
+
+                            <code class="javascript" data-trim>
+                                var ex1 = new Vue({
+                                    el: '#ex1',
+                                    data: {
+                                        text: 'This text was databound with Vue.'
+                                    }
+                                });
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <div id="ex1">
+                            {{ text }}
+                        </div>
+                    </section>
+                    <section>
+                        <h3>No really!</h3>
+                        <p>Use your browser's dev tools console to run the code below or <a href="#" onclick="ex1.text = 'These slides are demos!'; Reveal.navigateUp(); return false;">click here</a>. Then go back to the slide above.</p>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                ex1.text = "These slides are demos!";
+                                Reveal.navigateUp();
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>v-bind</h3>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div id="ex2"&gt;
+                                    &lt;a v-bind:href="url" target="_blank"&gt;
+                                        This link should open something.
+                                    &lt;/a&gt;
+                                &lt;/div&gt;
+                            </code>
+
+                            <code class="javascript" data-trim>
+                                var ex2 = new Vue({
+                                    el: '#ex2',
+                                    data: {
+                                        url: 'http://localhost:5000'
+                                    }
+                                });
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <div id="ex2">
+                            <a v-bind:href="url" target="_blank">
+                                This link should open something.
+                            </a>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Use your browser's dev tools console to run the code below or <a href="#" onclick="ex2.url = 'https://ryanrousseau.com/presentations/a-room-with-a-vue/'; Reveal.navigateUp(); return false;">click here</a>. Then go back to the slide above.</p>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                ex2.url = "https://ryanrousseau.com/presentations/a-room-with-a-vue/";
+                                Reveal.navigateUp();
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Conditionals</h3>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div id="ex3"&gt;
+                                    &lt;span v-if="visible"&gt;This text is visible by default&lt;/span&gt;
+                                    &lt;span v-show="!visible"&gt;This text is hidden by default&lt;/span&gt;
+                                &lt;/div&gt;
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <div id="ex3">
+                            <span v-if="visible">This text is visible by default</span>
+                            <span v-show="!visible">This text is hidden by default</span>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Try it in dev tools or <a href="#" onclick="ex3.visible = !ex3.visible; Reveal.navigateUp(); return false;">click here</a> to toggle the setting.</p>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                ex3.visible = !ex3.visible;
+                                Reveal.navigateUp();
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Loops</h3>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div id="ex4"&gt;
+                                    &lt;ol&gt;
+                                        &lt;li v-for="todo in todos"&gt;
+                                            {{ todo.text }}
+                                        &lt;/li&gt;
+                                    &lt;/ol&gt;
+                                &lt;/div&gt;
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                var ex4 = new Vue({
+                                    el: '#ex4',
+                                    data: {
+                                        todos: [
+                                            { text: 'Item #1' },
+                                            { text: 'Item #2' },
+                                            { text: 'Item #3' },
+                                            { text: 'Item #4' }
+                                        ]
+                                    }
+                                });
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <div id="ex4">
+                            <ol>
+                                <li v-for="todo in todos">
+                                    {{ todo.text }}
+                                </li>
+                            </ol>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Try it in dev tools or <a href="#" onclick="if (ex4.todos.length > 0) { ex4.todos.pop(); }; Reveal.navigateUp(); return false;">click here to remove an item</a> or <a href="#" onclick="ex4.todos.push({ text: 'Item #' + (ex4.todos.length + 1) }); Reveal.navigateUp(); return false;">click here to add an item</a>.</p>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                // remove last item
+                                if (ex4.todos.length > 0) { ex4.todos.pop(); }
+
+                                // add a new item
+                                ex4.todos.push({ text: 'Item #' + (ex4.todos.length + 1) });
+
+                                Reveal.navigateUp();
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Events!</h3>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div id="ex5"&gt;
+                                    &lt;p&gt;{{ text }}&lt;/p&gt;
+                                    &lt;button v-on:click="reverseText"&gt;Reverse Text&lt;/button&gt;
+                                &lt;/div&gt;
+                            </code>
+
+                            <code class="javascript" data-trim>
+                                var ex5 = new Vue({
+                                    el: '#ex5',
+                                    data: {
+                                        text: 'Click the button to reverse this text'
+                                    },
+                                    methods: {
+                                        reverseText: function () {
+                                            this.text = this.text.split('').reverse().join('')
+                                        }
+                                    }
+                                });
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <div id="ex5">
+                            <p>{{ text }}</p>
+                            <button class="button" v-on:click="reverseText">Reverse Text</button>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>v-model</h3>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div id="ex6"&gt;
+                                    &lt;p&gt;{{ text }}&lt;/p&gt;
+                                    &lt;input v-model="text"&gt;
+                                &lt;/div&gt;
+                            </code>
+
+                            <code class="javascript" data-trim>
+                                var ex6 = new Vue({
+                                    el: '#ex6',
+                                    data: {
+                                        text: 'Type in the box to change this slide'
+                                    }
+                                });
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <div id="ex6">
+                            <p>{{ text }}</p>
+                            <input class="input" v-model="text">
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Vue.component</h3>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                // Define a new component called todo-item
+                                Vue.component('todo-item', {
+                                    template: '<li>This is a todo</li>'
+                                })
+                            </code>
+
+                            <code class="html" data-trim>
+                                &lt;div id="ex7"&gt;
+                                    &lt;ol&gt;
+                                        &lt;!-- Create an instance of the todo-item component --&gt;
+                                        &lt;todo-item&gt;&lt;/todo-item&gt;
+                                    &lt;/ol&gt;
+                                &lt;/div&gt;
+                            </code>
+
+                            <code class="javascript" data-trim>
+                                var ex7 = new Vue({
+                                    el: '#ex7'
+                                });
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <div id="ex7">
+                            <ol>
+                                <!-- Create an instance of the todo-item component -->
+                                <todo-item></todo-item>
+                            </ol>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Let's build a website!</h2>
+                </section>
+    
+                <section>
+                    <h2>Speaker Vue</h2>
+                    <p>A conference site built with Vue.js</p>
+                    <p><a href="./speaker-vue/v10/" target="_blank">Final Version</a></p>
+                </section>
+
+                <section>
+                    <h2>Layout</h2>
+                    <p>I'm using the Phantom Template from <a href="https://html5up.net">html5up</a></p>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Let's get Vue.js working with the layout</h2>
+                    </section>
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div id="main"&gt;
+                                    &lt;div class="inner"&gt;
+                                        ...
+                    
+                                        &lt;div v-if="working"&gt;Vue.js is working.&lt;/div&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            </code>
+    
+                            <code class="javascript" data-trim>
+                                var main = new Vue({
+                                    el: '#main',
+                                    data: {
+                                        "working": true
+                                    }
+                                });
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v0/" target="_blank">Version 0</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Let's make convert the header to Vue.js</h2>
+                    </section>
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;header id="header"&gt;
+                                    &lt;div class="inner"&gt;
+                                        &lt;!-- Logo --&gt;
+                                        &lt;a href="index.html" class="logo"&gt;
+                                            &lt;span class="symbol"&gt;&lt;img v-bind:src="logo" alt="" /&gt;&lt;/span&gt;&lt;span class="title"&gt;{{ title }}&lt;/span&gt;
+                                        &lt;/a&gt;
+                                        ...
+                                    &lt;/div&gt;
+                                &lt;/header&gt;
+                            </code>
+    
+                            <code class="javascript" data-trim>
+                                var header = new Vue({
+                                    el: '#header',
+                                    data: {
+                                        "title": "Speaker Vue",
+                                        "logo": "/presentations/templates/phantom/images/logo.svg"
+                                    }
+                                });
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                    Vue.component('sv-header', {
+                                        props: ['header'],
+                                        template: `
+                                    &lt;div class="inner"&gt;
+                                        &lt;!-- Logo --&gt;
+                                        &lt;a href="index.html" class="logo"&gt;
+                                            &lt;span class="symbol"&gt;&lt;img v-bind:src="header.logo" alt="" /&gt;&lt;/span&gt;&lt;span class="title"&gt;{{ header.title }}&lt;/span&gt;
+                                        &lt;/a&gt;
+                                
+                                        &lt;!-- Nav --&gt;
+                                        &lt;nav&gt;
+                                            &lt;ul&gt;
+                                                &lt;li&gt;&lt;a href="#menu"&gt;Menu&lt;/a&gt;&lt;/li&gt;
+                                            &lt;/ul&gt;
+                                        &lt;/nav&gt;
+                                    &lt;/div&gt;`
+                                    });
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;header id="header"&gt;
+                                    &lt;sv-header v-bind:header="header"&gt;&lt;/sv-header&gt;
+                                &lt;/header&gt;
+                            </code>
+    
+                            <code class="javascript" data-trim>
+                                var header = new Vue({
+                                    el: '#header',
+                                    data: {
+                                        "header": {
+                                            "title": "Speaker Vue",
+                                            "logo": "/presentations/templates/phantom/images/logo.svg"
+                                        }
+                                    }
+                                });
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v1/" target="_blank">Version 1</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Let's make convert the menu to Vue.js</h2>
+                    </section>
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                    Vue.component('sv-menu', {
+                                        props: ['site'],
+                                        template: `
+                                    &lt;nav id="menu"&gt;
+                                        &lt;h2&gt;Menu&lt;/h2&gt;
+                                        &lt;ul&gt;
+                                            &lt;li&gt;&lt;a v-bind:href="site.root"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                                            &lt;li&gt;&lt;a v-bind:href="site.root + 'sessions/list.html'"&gt;Sessions&lt;/a&gt;&lt;/li&gt;
+                                            &lt;li&gt;&lt;a href="generic.html"&gt;About&lt;/a&gt;&lt;/li&gt;
+                                            &lt;li&gt;&lt;a href="generic.html"&gt;Register&lt;/a&gt;&lt;/li&gt;
+                                        &lt;/ul&gt;
+                                    &lt;/nav&gt;`
+                                    });
+                            </code>
+
+                            <code class="html" data-trim>
+                                &lt;div id="menu-div"&gt;
+                                    &lt;sv-menu v-bind:site="site"&gt;&lt;/sv-menu&gt;
+                                &lt;/div&gt;
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                var menu = new Vue({
+                                    el: '#menu-div',
+                                    data: {
+                                        "site": site
+                                    }
+                                });
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v2/" target="_blank">Version 2</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>We're doing the footer next</h2>
+                    <p>But we don't really need to see that</p>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Let's build some speaker tiles!</h2>
+                    </section>
+
+                    <section>
+                        <p>But first we need data...</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                data.speakers = [
+                                    {
+                                        id: 'spider-man',
+                                        name: 'Spider-Man',
+                                        bio: 'Your friendly neighborhood webslinger.'
+                                    }
+                                ];
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>What does a tile look like?</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;section class="tiles"&gt;
+                                    &lt;article class="style1"&gt;
+                                        &lt;span class="image"&gt;
+                                            &lt;img src="/presentations/templates/phantom/images/pic01.jpg" alt="" /&gt;
+                                        &lt;/span&gt;
+                                        &lt;a href="generic.html"&gt;
+                                            &lt;h2&gt;Magna&lt;/h2&gt;
+                                            &lt;div class="content"&gt;
+                                                &lt;p&gt;Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.&lt;/p&gt;
+                                            &lt;/div&gt;
+                                        &lt;/a&gt;
+                                    &lt;/article&gt;
+                                &lt;/section&gt;
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;section class="tiles"&gt;
+                                    &lt;article class="style1"&gt;
+                                        &lt;span class="image"&gt;
+                                            &lt;img src="/presentations/templates/phantom/images/pic01.jpg" alt="" /&gt;
+                                        &lt;/span&gt;
+                                        &lt;a v-bind:href="'./speakers/#' + speaker.id"&gt;
+                                            &lt;h2&gt;{{ speaker.name }}&lt;/h2&gt;
+                                            &lt;div class="content"&gt;
+                                                &lt;p&gt;{{ speaker.bio }}&lt;/p&gt;
+                                            &lt;/div&gt;
+                                        &lt;/a&gt;
+                                    &lt;/article&gt;
+                                &lt;/section&gt;
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                var main = new Vue({
+                                    el: '#main',
+                                    data: {
+                                        "working": true,
+                                        "speaker": data.speakers[0]
+                                    }
+                                });
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v3/" target="_blank">Version 3</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Okay, but let's have more than one speaker...</h2>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                var main = new Vue({
+                                    el: '#main',
+                                    data: {
+                                        "working": true,
+                                        "speakers": data.speakers
+                                    }
+                                });
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;section class="tiles"&gt;
+                                    &lt;article class="style1" v-for="speaker in speakers"&gt;
+                                        &lt;span class="image"&gt;
+                                            &lt;img v-bind:src="speaker.image" alt="" /&gt;
+                                        &lt;/span&gt;
+                                        &lt;a v-bind:href="'./speakers/#' + speaker.id"&gt;
+                                            &lt;h2&gt;{{ speaker.name }}&lt;/h2&gt;
+                                            &lt;div class="content"&gt;
+                                                &lt;p&gt;{{ speaker.bio }}&lt;/p&gt;
+                                            &lt;/div&gt;
+                                        &lt;/a&gt;
+                                    &lt;/article&gt;
+                                &lt;/section&gt;
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;section class="tiles"&gt;
+                                    &lt;template v-for="speaker in speakers"&gt;
+                                        &lt;article v-bind:class="speaker.style"&gt;
+                                            &lt;span class="image"&gt;
+                                                &lt;img v-bind:src="speaker.image" alt="" /&gt;
+                                            &lt;/span&gt;
+                                            &lt;a v-bind:href="'./speakers/#' + speaker.id"&gt;
+                                                &lt;h2&gt;{{ speaker.name }}&lt;/h2&gt;
+                                                &lt;div class="content"&gt;
+                                                    &lt;p&gt;{{ speaker.bio }}&lt;/p&gt;
+                                                &lt;/div&gt;
+                                            &lt;/a&gt;
+                                        &lt;/article&gt;
+                                    &lt;/template&gt;
+                                &lt;/section&gt;
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;section class="tiles"&gt;
+                                    &lt;template v-for="speaker in speakers"&gt;
+                                        &lt;sv-speaker-tile v-bind:speaker="speaker"&gt;&lt;/sv-speaker-tile&gt;
+                                    &lt;/template&gt;
+                                &lt;/section&gt;
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v4/" target="_blank">Version 4</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>It's time for that speaker page</h2>
+                    </section>
+
+                    <section>
+                        <p>Let's add session data</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                data.speakers = [
+                                    {
+                                        id: 'spider-man',
+                                        name: 'Spider-Man',
+                                        bio: "Bitten by a radioactive spider, high school student Peter Parker gained the speed, strength and powers of a spider. Adopting the name Spider-Man, Peter hoped to start a career using his new abilities. Taught that with great power comes great responsibility, Spidey has vowed to use his powers to help people.",
+                                        image: 'http://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b.jpg',
+                                        style: 'style',
+                                        sessions: [ 'session-1', 'session-2' ]
+                                    },
+                                    ...
+                                ]
+
+                                data.sessions = [
+                                {
+                                    id: 'session-1',
+                                    title: 'How To Do Whatever a Spider Can',
+                                    speaker: 'Spider-Man',
+                                    speakerId: 'spider-man',
+                                    blurb: 'Learn how to channel your inner arachnid and fight crime.',
+                                    description: 'Session 1 Description',
+                                    time: 'Saturday 10am - 11am'
+                                },
+                                ...
+                                ]
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Our link looks like this</p>
+                        <p>/speaker-vue/v5/speakers/#spider-man</p>
+                        <p>So we can grab the speaker id from the url</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                var main = new Vue({
+                                    el: '#main',
+                                    created() {
+                                        var speakerId = (window.location.hash) ? window.location.hash.split("#")[1] : '';
+                                        var speaker = data.speakers.find((speaker) => speaker.id === speakerId);
+                                        var sessionIds = speaker.sessions;
+                    
+                                        this.speaker = speaker;
+                                        this.sessions = data.sessions.filter((session) => sessionIds.indexOf(session.id) > -1);
+                                    }
+                                });
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div id="main"&gt;
+                                    &lt;div class="inner"&gt;
+                                        &lt;h1&gt;{{ speaker.name }}&lt;/h1&gt;
+                                        &lt;p&gt;{{ speaker.bio }}&lt;/p&gt;
+                    
+                                        &lt;h2&gt;Sessions&lt;/h2&gt;
+                    
+                                        &lt;section class="tiles"&gt;
+                                            &lt;template v-for="session in sessions"&gt;
+                                                &lt;sv-session-tile v-bind:session="session" v-bind:speaker="speaker"&gt;&lt;/sv-session-tile&gt;
+                                            &lt;/template&gt;
+                                        &lt;/section&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                Vue.component('sv-session-tile', {
+                                    props: ['session', 'speaker'],
+                                    template: `
+                                &lt;article v-bind:class="speaker.style"&gt;
+                                    &lt;span class="image"&gt;
+                                        &lt;img v-bind:src="speaker.image" alt="" /&gt;
+                                    &lt;/span&gt;
+                                    &lt;a v-bind:href="'../sessions/#' + session.id"&gt;
+                                        &lt;h2&gt;{{ session.title }}&lt;/h2&gt;
+                                        &lt;div class="content"&gt;
+                                            &lt;p&gt;{{ session.blurb }}&lt;br/&gt;{{ session.time }}&lt;/p&gt;
+                                        &lt;/div&gt;
+                                    &lt;/a&gt;
+                                &lt;/article&gt;
+                                `
+                                });
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v5/" target="_blank">Version 5</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Y'all want to build the session details page?</h2>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                data.sessions = [
+                                    {
+                                        id: 'session-1',
+                                        title: 'How To Do Whatever a Spider Can',
+                                        speaker: 'Spider-Man',
+                                        speakerId: 'spider-man',
+                                        blurb: 'Learn how to channel your inner arachnid and fight crime.',
+                                        description: `<strong>Spider-Man</strong>. <strong>Spider-Man</strong>. I do whatever a spider can...<br/><br/>And now so can you! I'll share my crimefighting secrets that you can start using today to capture the bad guys and keep your Aunt May safe.`,
+                                        time: 'Saturday 10am - 11am'
+                                    },
+                                    ...
+                                ]
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                var main = new Vue({
+                                    el: '#main',
+                                    created() {
+                                        var sessionId = (window.location.hash) ? window.location.hash.split("#")[1] : '';
+                                        this.session = data.sessions.find((session) => session.id === sessionId);
+                                        
+                                        this.speaker = data.speakers.find((speaker) => speaker.id === this.session.speakerId);
+                                        this.site = site;
+                                    }
+                                });
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div id="main"&gt;
+                                    &lt;div class="inner"&gt;
+                                        &lt;h1&gt;{{ session.title }}&lt;/h1&gt;
+                                        &lt;h2&gt;{{ session.time }}&lt;/h2&gt;
+                                        &lt;p v-html="session.description"&gt;&lt;/p&gt;
+                    
+                                        &lt;h2&gt;Speaker&lt;/h2&gt;
+                                        &lt;section class="tiles"&gt;
+                                            &lt;sv-speaker-tile v-bind:speaker="speaker" v-bind:site="site"&gt;&lt;/sv-speaker-tile&gt;
+                                        &lt;/section&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v6/" target="_blank">Version 6</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>And a page that lists all sessions?</h2>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div class="inner"&gt;
+                                    &lt;section class="tiles"&gt;
+                                        &lt;template v-for="session in sessions"&gt;
+                                            &lt;sv-session-tile v-bind:session="session" v-bind:speaker="session.speaker" v-bind:site="site"&gt;&lt;/sv-session-tile&gt;
+                                        &lt;/template&gt;
+                                    &lt;/section&gt;
+                                &lt;/div&gt;
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                var main = new Vue({
+                                    el: '#main',
+                                    created() {
+                                        this.sessions = data.sessions.map((s) => {
+                                            var session = Object.assign({}, s);
+                                            session.speaker = data.speakers.find((speaker) => speaker.id === session.speakerId);
+                    
+                                            return session;
+                                        });
+                    
+                                        this.site = site;
+                                    }
+                                });
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v7/" target="_blank">Version 7</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Filtering and Computed Properties</h2>
+                    </section>
+
+                    <section>
+                        <p>Let's filter sessions by day</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;div class="col-6 col-12-medium"&gt;
+                                    &lt;ul class="actions"&gt;
+                                        &lt;li&gt;&lt;a v-on:click="toggleFriday" class="button" v-bind:class="{ primary: fridayVisible }"&gt;Friday&lt;/a&gt;&lt;/li&gt;
+                                        &lt;li&gt;&lt;a v-on:click="toggleSaturday" class="button" v-bind:class="{ primary: saturdayVisible }"&gt;Saturday&lt;/a&gt;&lt;/li&gt;
+                                    &lt;/ul&gt;
+                                &lt;/div&gt;
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                computed: {
+                                    visibleSessions: function() {
+                                        if (this.fridayVisible && this.saturdayVisible) {
+                                            return this.sessions;
+                                        }
+                                        
+                                        if (this.fridayVisible) {
+                                            return this.sessions.filter((session) => session.time.startsWith('Friday'));
+                                        }
+                
+                                        if (this.saturdayVisible) {
+                                            return this.sessions.filter((session) => session.time.startsWith('Saturday'));
+                                        }
+                                    }
+                                },
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                methods: {
+                                    toggleFriday: function() {
+                                        this.fridayVisible = !this.fridayVisible;
+                                    },
+                                    toggleSaturday: function() {
+                                        this.saturdayVisible = !this.saturdayVisible;
+                                    }
+                                }
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v9/" target="_blank">Version 9</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Finally, let's do some data input</h2>
+                    </section>
+
+                    <section>
+                        <p>We need a page to add sessions</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="html" data-trim>
+                                &lt;input v-model="session.id" type="text" name="id" id="title" placeholder="ID" autofocus /&gt;
+                                &lt;select v-model="session.speakerId" name="speaker" id="speaker"&gt;
+                                    &lt;option value=""&gt;- Speaker -&lt;/option&gt;
+                                    &lt;option v-for="s in speakers" v-bind:value="s.id"&gt;
+                                        {{ s.name }}
+                                    &lt;/option&gt;
+                                &lt;/select&gt;
+                                &lt;li&gt;&lt;a v-on:click="saveSession" class="button primary"&gt;Save&lt;/a&gt;&lt;/li&gt;
+                                &lt;li&gt;&lt;a v-on:click="clearSession" class="button"&gt;Clear&lt;/a&gt;&lt;/li&gt;
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim>
+                                var main = new Vue({
+                                    el: '#main',
+                                    data: {
+                                        session: Object.assign({}, emptySession),
+                                        speakers: data.speakers,
+                                        site: site
+                                    },
+                                    methods: {
+                                        clearSession: function() {
+                                            this.session = Object.assign({}, emptySession);
+                                        },
+                                        saveSession: function() {
+                                            var session = JSON.parse(JSON.stringify(this.session));
+                                            data.addSession(session);
+                                            this.session = Object.assign({}, emptySession);
+                                        }
+                                    }
+                                });
+                            </code>
+                        </pre>
+
+                        <p><a href="./speaker-vue/v10/" target="_blank">Version 10</a></p>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Thank you!</h2>
+                </section>
+            </div>
+		</div>
+		<script src="/presentations/js/revealjs/lib/js/head.min.js"></script>
+		<script src="/presentations/js/revealjs/js/reveal.js"></script>
+		<script src="/presentations/js/vue.min.js"></script>
+		<script>
+            Reveal.initialize({
+                controlsLayout: 'edges',
+                progress: false,
+                transition: 'convex',
+                backgroundTransition: 'none',
+                slideNumber: true,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: '/presentations/js/revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '/presentations/js/revealjs/plugin/zoom-js/zoom.js', async: true },
+                ]
+            });
+
+            // Define a new component called todo-item
+            Vue.component('todo-item', {
+                template: '<li>This is a todo</li>'
+            })
+
+            var ex1 = new Vue({
+                el: '#ex1',
+                data: {
+                    text: 'This text was databound with Vue.'
+                }
+            });
+
+            var ex2 = new Vue({
+                el: '#ex2',
+                data: {
+                    url: 'http://localhost:5000'
+                }
+            });
+
+            var ex3 = new Vue({
+                el: '#ex3',
+                data: {
+                    visible: true
+                }
+            });
+
+            var ex4 = new Vue({
+                el: '#ex4',
+                data: {
+                    todos: [
+                        { text: 'Item #1' },
+                        { text: 'Item #2' },
+                        { text: 'Item #3' },
+                        { text: 'Item #4' }
+                    ]
+                }
+            });
+
+            var ex5 = new Vue({
+                el: '#ex5',
+                data: {
+                    text: 'Click the button to reverse this text'
+                },
+                methods: {
+                    reverseText: function () {
+                    this.text = this.text.split('').reverse().join('')
+                    }
+                }
+            });
+
+            var ex6 = new Vue({
+                el: '#ex6',
+                data: {
+                    text: 'Type in the box to change this slide'
+                }
+            });
+
+            var ex7 = new Vue({
+                el: '#ex7'
+            });
+		</script>
+	</body>
+</html>

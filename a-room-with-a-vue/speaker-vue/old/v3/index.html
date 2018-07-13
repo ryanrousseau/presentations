@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Speaker Vue</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../main.css">
+    </head>
+    <body>
+        <div id="app">
+            <header>
+                <h1>{{ conference.name }}</h1>
+                <p>{{ conference.description }} - {{ conference.dates }} - {{ conference.location }}</p>
+            </header>
+
+            <main>
+                <ul>
+                    <sv-speaker-item v-for="speaker in speakers"
+                        v-bind:speaker="speaker"
+                        v-bind:key="speaker.id">
+                    </sv-speaker-item>
+                </ul>
+            </main>
+
+            <footer>
+                &copy; Super Conf; Powered by Speaker Vue
+            </footer>
+        </div>
+        
+        <script src="../main.js"></script>
+        <script src="/presentations/js/vue.min.js"></script>
+        
+        <script type="text/javascript">
+            Vue.component('sv-speaker-item', {
+                props: ['speaker'],
+                template: '<li><a v-bind:href="\'speakers/\' + speaker.id">{{ speaker.name }}</a> - {{ speaker.bio }}</li>'
+            });
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    'conference': data.conference,
+                    'speakers': data.speakers
+                }
+            });
+    </script>
+    </body>
+</html>

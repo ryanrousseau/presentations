@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Super Conf - Sessions</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/presentations/templates/phantom/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/presentations/templates/phantom/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+        <div id="wrapper">
+            <!-- Header -->
+            <header id="header">
+                <sv-header-v1 v-bind:header="header" v-bind:site="site"></sv-header-v1>
+            </header>
+
+            <!-- Menu -->
+            <div id="menu-div">
+                <sv-menu v-bind:site="site"></sv-menu>
+            </div>
+
+            <!-- Main -->
+            <div id="main">
+                <div class="inner">
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-medium">
+                            <ul class="actions">
+                                <li><a v-on:click="toggleFriday" class="button" v-bind:class="{ primary: fridayVisible }">Friday</a></li>
+                                <li><a v-on:click="toggleSaturday" class="button" v-bind:class="{ primary: saturdayVisible }">Saturday</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <section class="tiles">
+                        <template v-for="session in visibleSessions">
+                            <sv-session-tile v-bind:session="session" v-bind:speaker="session.speaker" v-bind:site="site"></sv-session-tile>
+                        </template>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer id="footer">
+                <sv-footer></sv-footer>
+            </footer>
+        </div>
+
+		<!-- Scripts -->
+        <script src="/presentations/js/vue.min.js"></script>
+        <script src="../../components.js"></script>
+        <script src="../../main.js"></script>
+        <script type="text/javascript">
+            var site = data.createSite('v10');
+
+            var header = new Vue({
+                el: '#header',
+                data: {
+                    "header": {
+                        "title": "Super Conf",
+                        "logo": "/presentations/templates/phantom/images/logo.svg"
+                    },
+                    "site": site
+                }
+            });
+
+            var menu = new Vue({
+                el: '#menu-div',
+                data: {
+                    "site": site
+                }
+            });
+
+            var footer = new Vue({
+                el: '#footer'
+            });
+
+            var main = new Vue({
+                el: '#main',
+                data: {
+                    fridayVisible: true,
+                    saturdayVisible: true
+                },
+                created() {
+                    this.sessions = data.sessions.map((s) => {
+                        var session = Object.assign({}, s);
+                        session.speaker = data.speakers.find((speaker) => speaker.id === session.speakerId);
+
+                        return session;
+                    });
+
+                    this.site = site;
+                },
+                computed: {
+                    visibleSessions: function() {
+                        if (this.fridayVisible && this.saturdayVisible) {
+                            return this.sessions;
+                        }
+                        
+                        if (this.fridayVisible) {
+                            return this.sessions.filter((session) => session.time.startsWith('Friday'));
+                        }
+
+                        if (this.saturdayVisible) {
+                            return this.sessions.filter((session) => session.time.startsWith('Saturday'));
+                        }
+                    }
+                },
+                methods: {
+                    toggleFriday: function() {
+                        this.fridayVisible = !this.fridayVisible;
+                    },
+                    toggleSaturday: function() {
+                        this.saturdayVisible = !this.saturdayVisible;
+                    }
+                }
+            });
+        </script>
+        <script src="/presentations/templates/phantom/assets/js/jquery.min.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/browser.min.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/breakpoints.min.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/util.js"></script>
+        <script src="/presentations/templates/phantom/assets/js/main.js"></script>
+    </body>
+</html>
