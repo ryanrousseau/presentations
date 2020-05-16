@@ -1,0 +1,36 @@
+name: Slides
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - ".github/workflows/slides.yml"
+      - "slides/**"
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set version
+        id: set-version
+        run: echo "::set-env name=PACKAGE_VERSION::$(date +'%Y.%m.%d').$GITHUB_RUN_NUMBER"
+
+      - uses: actions/checkout@v2
+
+      - name: Install Octopus CLI
+        run: |
+          sudo apt update && sudo apt install --no-install-recommends gnupg curl ca-certificates apt-transport-https && \
+          curl -sSfL https://apt.octopus.com/public.key | sudo apt-key add - && \
+          sudo sh -c "echo deb https://apt.octopus.com/ stable main > /etc/apt/sources.list.d/octopus.com.list" && \
+          sudo apt update && sudo apt install octopuscli
+
+      - name: Package slides.rousseau.dev
+        run: |
+          mkdir -p ./packages/slides.rousseau.dev/slides/
+          cp .firebaserc firebase.json ./packages/slides.rousseau.dev/
+          cp -avr ./slides/* ./packages/slides.rousseau.dev/slides/
+          octo pack --id="slides.rousseau.dev" --format="Zip" --version="$PACKAGE_VERSION" --basePath="./packages/slides.rousseau.dev" --outFolder="./packages"
+
+      - name: Push slides.rousseau.dev to Octopus
+        run: octo push --package="./packages/slides.rousseau.dev.$PACKAGE_VERSION.zip" --server="https://rousseau.octopus.app" --apiKey="${{ secrets.OCTOPUS_API_KEY }}"

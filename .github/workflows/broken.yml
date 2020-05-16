@@ -1,0 +1,36 @@
+name: Broken
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - ".github/workflows/broken.yml"
+      - "broken/**"
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set version
+        id: set-version
+        run: echo "::set-env name=PACKAGE_VERSION::$(date +'%Y.%m.%d').$GITHUB_RUN_NUMBER"
+
+      - uses: actions/checkout@v2
+
+      - name: Install Octopus CLI
+        run: |
+          sudo apt update && sudo apt install --no-install-recommends gnupg curl ca-certificates apt-transport-https && \
+          curl -sSfL https://apt.octopus.com/public.key | sudo apt-key add - && \
+          sudo sh -c "echo deb https://apt.octopus.com/ stable main > /etc/apt/sources.list.d/octopus.com.list" && \
+          sudo apt update && sudo apt install octopuscli
+
+      - name: Package broken.rousseau.dev
+        run: |
+          mkdir -p ./packages/broken.rousseau.dev/broken/
+          cp .firebaserc firebase.json ./packages/broken.rousseau.dev/
+          cp -avr ./broken/* ./packages/broken.rousseau.dev/broken/
+          octo pack --id="broken.rousseau.dev" --format="Zip" --version="$PACKAGE_VERSION" --basePath="./packages/broken.rousseau.dev" --outFolder="./packages"
+
+      - name: Push broken.rousseau.dev to Octopus
+        run: octo push --package="./packages/broken.rousseau.dev.$PACKAGE_VERSION.zip" --server="https://rousseau.octopus.app" --apiKey="${{ secrets.OCTOPUS_API_KEY }}"
