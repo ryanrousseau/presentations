@@ -1,0 +1,23 @@
+{
+  "projects": {
+    "default": "ryanrousseau-e0019"
+  },
+  "targets": {
+    "ryanrousseau-e0019": {
+      "hosting": {
+        "slides" : [
+          "slides-rousseau-dev"
+        ],
+        "zero": [
+          "zero-to-automated-deployments"
+        ],
+        "multi-tenancy" : [
+          "multi-tenancy"
+        ],
+        "broken" : [
+          "broken-deployments"
+        ]
+      }
+    }
+  }
+}

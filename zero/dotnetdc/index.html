@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>From zero to automated deployments in less than an hour</title>
+
+	<link rel="stylesheet" href="https://slides.rousseau.dev/css/reset.css">
+	<link rel="stylesheet" href="https://slides.rousseau.dev/css/reveal.css">
+	<link rel="stylesheet" href="https://slides.rousseau.dev/css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="https://slides.rousseau.dev/lib/css/monokai.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'https://slides.rousseau.dev/css/print/pdf.css' : 'https://slides.rousseau.dev/css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+
+	<style type="text/css">
+		body {}
+
+		.background-image {
+			position: fixed;
+			left: 0;
+			right: 0;
+			z-index: 1;
+
+			display: block;
+
+			background: url('https://slides.rousseau.dev/img/zero/background.jpg') no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+
+			width: 100%;
+			height: 100%;
+
+			-webkit-filter: blur(5px);
+			-moz-filter: blur(5px);
+			-o-filter: blur(5px);
+			-ms-filter: blur(5px);
+			filter: blur(5px);
+
+			opacity: 0.3;
+		}
+
+		a {
+			color: white !important;
+			text-decoration: underline !important;
+		}
+
+		.reveal pre {
+			box-shadow: 0 0 0 0 !important;
+		}
+
+		.nostyle {
+			box-shadow: none !important;
+			border: 0 !important;
+			background: transparent !important;
+		}
+
+		.strong {
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="background-image"></div>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h2>From zero* to automated deployments</h2>
+				<h6>in less than an hour*</h6>
+			</section>
+
+			<section>
+				<img src="https://slides.rousseau.dev/img/runtime-error.jpg" width="30%" style="float: right">
+				<div width="70%">
+					<p><a href="https://twitter.com/ryanrousseau" target="_blank">@ryanrousseau</a></p>
+					<hr />
+					<p>Continuous Delivery Architect @ <a href="https://octopus.com" target="_blank">Octopus Deploy</a>
+					</p>
+					<hr />
+					Dallas, TX
+					<hr />
+					<p>.NET Dev, Automator, Comedian</p>
+					<hr />
+					<p>Runtime Error -> </p>
+				</div>
+			</section>
+
+			<section>
+				<p>Slides can be found at</p>
+				<p><a href="https://zero.rousseau.dev/dotnetdc/" target="_blank">https://zero.rousseau.dev/dotnetdc/</a>
+				</p>
+			</section>
+
+			<section>
+				<section>
+					<p class="strong">What is Continuous Integration?</p>
+				</section>
+
+				<section>
+					<p>Merging code often to a shared repository</p>
+					<p>Automated builds and tests trigger on commit</p>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<p class="strong">What about Continuous Delivery and Continuous Deployment?</p>
+				</section>
+
+				<section>
+					<p>Continuous Delivery means that the software deployment process is automated</p>
+					<p>Every change can be deployed to production</p>
+				</section>
+
+				<section>
+					<p>Continuous Deployment is an extension of Continuous Delivery</p>
+					<p>Every change is automatically deployed to production</p>
+				</section>
+
+				<section>
+					<p>Continuous Deployment requires a lot of infrastructure, tooling, and discipline</p>
+				</section>
+
+				<section>
+					<p>Continuous Deployment's not for everyone</p>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<p class="strong">Simple CI/CD Process</p>
+					<ul>
+						<li>Commit the code</li>
+						<li>Build the code and run tests</li>
+						<li>Package the applications</li>
+						<li>Deploy the applications</li>
+					</ul>
+				</section>
+
+				<section>
+					<img src="https://slides.rousseau.dev/img/zero/pipeline.png" style="background:white" />
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<p class="strong">Demo Setup</p>
+					<ul>
+						<li>Azure DevOps for Source Control</li>
+						<li>Cake build scripts</li>
+						<li>Azure DevOps for Build Server</li>
+						<li>Octopus Deploy for Deploy Server</li>
+					</ul>
+				</section>
+
+				<section>
+					<p class="strong">Use what's right for your team</p>
+				</section>
+			</section>
+
+			<section>
+				<p class="strong">Cake (C# Makefiles)</p>
+
+				<p><a href="https://octopus.com/blog/cake-build-scripts" target="_blank">Blog post about Cake</a></p>
+				<p><a href="https://github.com/OctopusSamples/OctoPetShop/blob/master/build.cake"
+						target="_blank">OctoPetShop script
+						on GitHub</a></p>
+			</section>
+
+			<section>
+				<p class="strong">Enough slides, let's jump into the demo!</p>
+			</section>
+
+			<section>
+				<section>
+					<p class="strong">Why would you want to invest in your deployment pipeline?</p>
+				</section>
+
+				<section>
+					<p>Fewer errors during deployments</p>
+					<p>More confidence in making changes</p>
+					<p>Ability to make changes quicker</p>
+					<p>The same process applied to test and production environments</p>
+					<p>A happier team *</p>
+				</section>
+			</section>
+
+			<section>
+				<p class="strong">Thank you for hosting me!</p>
+				<p class="strong">Can I answer any questions?</p>
+			</section>
+		</div>
+	</div>
+
+	<script src="https://slides.rousseau.dev/js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			controlsLayout: 'edges',
+			progress: false,
+			transition: 'convex',
+			backgroundTransition: 'none',
+			slideNumber: true,
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [
+				{ src: 'https://slides.rousseau.dev/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+				{ src: 'https://slides.rousseau.dev/plugin/zoom-js/zoom.js', async: true },
+			]
+		});
+	</script>
+</body>
+
+</html>

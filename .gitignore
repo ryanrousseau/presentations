@@ -1,0 +1,4 @@
+.grunt
+.vscode
+.firebase/
+node_modules/

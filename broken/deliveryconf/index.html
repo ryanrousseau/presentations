@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>How we fixed our broken deployment process</title>
+
+	<link rel="stylesheet" href="https://slides.rousseau.dev/css/reset.css">
+	<link rel="stylesheet" href="https://slides.rousseau.dev/css/reveal.css">
+	<link rel="stylesheet" href="https://slides.rousseau.dev/css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="https://slides.rousseau.dev/lib/css/monokai.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'https://slides.rousseau.dev/css/print/pdf.css' : 'https://slides.rousseau.dev/css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+	<style type="text/css">
+		.background-image {
+			position: fixed;
+			left: 0;
+			right: 0;
+			z-index: 1;
+
+			display: block;
+
+			background: url('https://slides.rousseau.dev/img/broken/background.jpg') no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+
+			width: 100%;
+			height: 100%;
+
+			-webkit-filter: blur(5px);
+			-moz-filter: blur(5px);
+			-o-filter: blur(5px);
+			-ms-filter: blur(5px);
+			filter: blur(5px);
+
+			opacity: 0.2;
+		}
+
+		a {
+			color: white !important;
+			text-decoration: underline !important;
+		}
+
+		.reveal pre {
+			box-shadow: 0 0 0 0 !important;
+		}
+
+		.nostyle {
+			box-shadow: none !important;
+			border: 0 !important;
+			background: transparent !important;
+		}
+
+		.strong {
+			font-weight: bold;
+			font-size: 54px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="background-image"></div>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h2>How we fixed our broken deployment process</h2>
+				<p>Ryan Rousseau</p>
+			</section>
+
+			<section>
+				<p>I can be found IRL at the <a href="https://octopus.com" target="_blank">Octopus Deploy</a> table</p>
+				<hr />
+				<p>I can be found on Twitter <a href="https://twitter.com/ryanrousseau"
+						target="_blank">@ryanrousseau</a></p>
+				<hr />
+				<p>Slides can be found at <a href="https://broken.rousseau.dev/deliveryconf/"
+						target="_blank">https://broken.rousseau.dev/deliveryconf/</a></p>
+				<hr />
+				<p>Check <a href="https://twitter.com/hashtag/deliveryconf" target="_blank">#DeliveryConf</a> on Twitter
+				</p>
+			</section>
+
+			<section>
+				<p class="strong">The year is 2013</p>
+				<p class="fragment">My team builds a web application spanning VB6, classic ASP, and ASP.NET</p>
+				<p class="fragment">Our deployment process is broken</p>
+				<p class="fragment">It's not going great</p>
+			</section>
+
+			<section>
+				<p class="strong">Our deployments</p>
+				<p class="fragment">Mostly manual (deploy by Word doc), but there are some scripts for copying files to
+					servers</p>
+				<p class="fragment">Different steps for different environments</p>
+				<p class="fragment">They take too much time - usually multiple hours</p>
+			</section>
+
+			<section>
+				<p class="strong">Non-production woes</p>
+				<p class="fragment">"Hey, can you refresh the demo system for me?"</p>
+				<p class="fragment">Delays in testing new changes and bug fixes</p>
+				<p class="fragment">No two environments were the same and the state of each environment was always in
+					question</p>
+			</section>
+
+			<section>
+				<p class="strong">Production woes</p>
+				<p class="fragment">Customers know when we deploy</p>
+				<p class="fragment">Because stuff breaks a lot</p>
+				<p class="fragment">Deploying to production is nearly a full time job</p>
+			</section>
+
+			<section>
+				<p class="strong">Did I mention?</p>
+				<p class="fragment">We deploy twice a week (scheduled)</p>
+				<p class="fragment">or for anything considered a "Work Stoppage"</p>
+				<p class="fragment">Something has to change</p>
+			</section>
+
+			<section>
+				<p class="strong">Process changes</p>
+				<p class="fragment">Slow down!</p>
+				<p class="fragment">Big changes are only released monthly</p>
+				<p class="fragment">More oversight on labeling issues as "Work Stoppage"</p>
+			</section>
+
+			<section>
+				<p class="strong">Dallas Day of .NET</p>
+				<p class="fragment">I attended a session by Jeffrey Palermo on Iteration Zero</p>
+				<p class="fragment">PSake: PowerShell Make</p>
+				<p class="fragment">Book: <a
+						href="https://www.amazon.com/Configuration-Management-Best-Practices-Practical/dp/0321685865/">Configuration
+						Management Best Practices</a></p>
+			</section>
+
+			<section>
+				<p class="strong">I'll automate our deployments with PSake!</p>
+				<p class="fragment">Friend: wait, check out this tool I found (Octopus Deploy)</p>
+				<p class="fragment">Downloaded the trial and had a web deployment to a test environment in about two
+					hours</p>
+				<p class="fragment">Full application deployment from Development to Production in two weeks</p>
+			</section>
+
+			<section>
+				<p class="strong">Bad Practice: Manual Web Deployments</p>
+				<p class="fragment">Error prone, unreliable, not repeatable</p>
+				<p class="fragment">Average of 1-2 hours per deployment, sometimes 8 for troubleshooting</p>
+				<p class="fragment">Not very many people knew how to do the deployment</p>
+			</section>
+
+			<section>
+				<p class="strong">How we fixed it</p>
+				<p class="fragment">Created a PowerShell script to automate the deployment and configuration of our apps
+				</p>
+				<p class="fragment">Updated our builds using PSake to create the artifacts Octopus needed</p>
+				<p class="fragment">Configured Octopus to deploy our applications to our infrastructure</p>
+			</section>
+
+			<section>
+				<p class="strong">Bad practice: branch per environment</p>
+				<p class="fragment">Development</p>
+				<p class="fragment">Staging</p>
+				<p class="fragment">Production</p>
+			</section>
+
+			<section>
+				<p class="strong">But why was this bad?</p>
+				<p class="fragment">Different builds per environment</p>
+				<p class="fragment">Hotfixes had to merge backwards from Production -> Development</p>
+				<p class="fragment">We were doing a lot of cherry pick merges</p>
+				<p class="fragment">Merge conflicts were super fun</p>
+			</section>
+
+			<section>
+				<p class="strong">Environment configuration</p>
+				<p class="fragment">Updating config files at build time</p>
+				<p class="fragment">Passwords in source control</p>
+			</section>
+
+			<section>
+				<p class="strong">How we fixed it</p>
+				<p class="fragment">Removed Staging branch</p>
+				<p class="fragment">Development and Production branches only</p>
+				<p class="fragment">Everything gets deployed or nothing gets deployed</p>
+				<p class="fragment">Octopus applied configuration at deploy time</p>
+			</section>
+
+			<section>
+				<p class="strong">Bad Practice: Manual Database Deployments</p>
+				<p class="fragment">Scripts, schema changes, and stored procedures were usually run via a cmd file</p>
+				<p class="fragment">Each change had their own cmd file or script to run</p>
+			</section>
+
+			<section>
+				<p class="strong">Why manual DB deployments were worse than manual web deployments</p>
+				<p class="fragment">Sometimes the order of scripts mattered and sometimes the same order wasn't followed
+					on each environment</p>
+				<p class="fragment">The release manager had little context for these scripts in the event they failed
+				</p>
+				<p class="fragment">Release manager (and others) had write access to production database</p>
+			</section>
+
+			<section>
+				<p class="strong">How we fixed it</p>
+				<p class="fragment">We incorporated a database migration tool, FluentMigrator</p>
+				<p class="fragment">Run order was defined in the migration scripts</p>
+				<p class="fragment">Only needed to run one command for a release instead of many commands</p>
+				<p class="fragment">Most people (including me) had production write access revoked</p>
+			</section>
+
+			<section>
+				<p class="strong">Some obstacles along the way</p>
+				<p class="fragment">Change is hard</p>
+				<p class="fragment">Legacy deployment steps</p>
+				<p class="fragment">Personalities and buy-in</p>
+			</section>
+
+			<section>
+				<p class="strong">The results</p>
+				<p class="fragment">Deployment times down to 10-15 minutes</p>
+				<p class="fragment">Trained a team of release engineers</p>
+				<p class="fragment">Four scheduled deployments a week</p>
+				<p class="fragment">And customers couldn't tell (except for the new features)</p>
+			</section>
+
+			<section>
+				<p class="strong">Thank you!</p>
+				<hr />
+				<p><a href="https://twitter.com/ryanrousseau" target="_blank">@ryanrousseau</a></p>
+				<p><a href="https://broken.rousseau.dev/deliveryconf/"
+						target="_blank">https://broken.rousseau.dev/deliveryconf/</a></p>
+				<hr />
+				<p>Background Photo by <a href="https://unsplash.com/@mamihery" target="_blank">Zo Razafindramamba</a>
+					on <a href="https://unsplash.com/photos/KeakS9D1N7s" target="_blank">Unsplash</a></p>
+			</section>
+		</div>
+	</div>
+
+	<script src="https://slides.rousseau.dev/js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			controlsLayout: 'edges',
+			progress: false,
+			transition: 'convex',
+			backgroundTransition: 'none',
+			slideNumber: true,
+			previewLinks: true,
+			width: 1280,
+			height: 720,
+			previewLinks: false,
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [
+				{ src: 'https://slides.rousseau.dev/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+				{ src: 'https://slides.rousseau.dev/plugin/zoom-js/zoom.js', async: true },
+			]
+		});
+	</script>
+</body>
+
+</html>

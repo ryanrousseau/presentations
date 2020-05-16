@@ -1,0 +1,20 @@
+{
+  "hosting": [
+    {
+      "target": "slides",
+      "public": "slides"
+    },
+    {
+      "target": "zero",
+      "public": "zero"
+    },
+    {
+      "target": "multi-tenancy",
+      "public": "multi-tenancy"
+    },
+    {
+      "target": "broken",
+      "public": "broken"
+    }
+  ]
+}
