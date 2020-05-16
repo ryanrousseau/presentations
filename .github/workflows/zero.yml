@@ -1,0 +1,36 @@
+name: Zero
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - ".github/workflows/zero.yml"
+      - "zero/**"
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set version
+        id: set-version
+        run: echo "::set-env name=PACKAGE_VERSION::$(date +'%Y.%m.%d').$GITHUB_RUN_NUMBER"
+
+      - uses: actions/checkout@v2
+
+      - name: Install Octopus CLI
+        run: |
+          sudo apt update && sudo apt install --no-install-recommends gnupg curl ca-certificates apt-transport-https && \
+          curl -sSfL https://apt.octopus.com/public.key | sudo apt-key add - && \
+          sudo sh -c "echo deb https://apt.octopus.com/ stable main > /etc/apt/sources.list.d/octopus.com.list" && \
+          sudo apt update && sudo apt install octopuscli
+
+      - name: Package zero.rousseau.dev
+        run: |
+          mkdir -p ./packages/zero.rousseau.dev/zero/
+          cp .firebaserc firebase.json ./packages/zero.rousseau.dev/
+          cp -avr ./zero/* ./packages/zero.rousseau.dev/zero/
+          octo pack --id="zero.rousseau.dev" --format="Zip" --version="$PACKAGE_VERSION" --basePath="./packages/zero.rousseau.dev" --outFolder="./packages"
+
+      - name: Push zero.rousseau.dev to Octopus
+        run: octo push --package="./packages/zero.rousseau.dev.$PACKAGE_VERSION.zip" --server="https://rousseau.octopus.app" --apiKey="${{ secrets.OCTOPUS_API_KEY }}"
