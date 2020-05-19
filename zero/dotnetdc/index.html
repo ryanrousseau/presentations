@@ -79,29 +79,35 @@
 		<div class="slides">
 			<section>
 				<h2>From zero* to automated deployments</h2>
-				<h6>in less than an hour*</h6>
+				<h6>in less than an hour</h6>
 			</section>
 
 			<section>
-				<img src="https://slides.rousseau.dev/img/runtime-error.jpg" width="30%" style="float: right">
-				<div width="70%">
-					<p><a href="https://twitter.com/ryanrousseau" target="_blank">@ryanrousseau</a></p>
-					<hr />
-					<p>Continuous Delivery Architect @ <a href="https://octopus.com" target="_blank">Octopus Deploy</a>
-					</p>
-					<hr />
-					Dallas, TX
-					<hr />
-					<p>.NET Dev, Automator, Comedian</p>
-					<hr />
-					<p>Runtime Error -> </p>
-				</div>
-			</section>
-
-			<section>
-				<p>Slides can be found at</p>
+				<p>Ryan Rousseau</p>
+				<hr />
+				<p>Continuous Delivery Architect @ <a href="https://octopus.com" target="_blank">Octopus Deploy</a>
+				</p>
+				<hr />
+				<p><a href="https://twitter.com/ryanrousseau" target="_blank">@ryanrousseau</a></p>
+				<hr />
+				<p><a href="https://dev.to/ryanrousseau" target="_blank">https://dev.to/ryanrousseau</a></p>
+				<hr />
 				<p><a href="https://zero.rousseau.dev/dotnetdc/" target="_blank">https://zero.rousseau.dev/dotnetdc/</a>
 				</p>
+			</section>
+
+			<section>
+				<section>
+					<p class="strong">Why invest in automated deployments?</p>
+				</section>
+
+				<section>
+					<p>Fewer errors during deployments</p>
+					<p>More confidence in making changes</p>
+					<p>Ability to make changes quicker</p>
+					<p>The same process applied to test and production environments</p>
+					<p>A happier team (maybe)</p>
+				</section>
 			</section>
 
 			<section>
@@ -129,14 +135,6 @@
 					<p>Continuous Deployment is an extension of Continuous Delivery</p>
 					<p>Every change is automatically deployed to production</p>
 				</section>
-
-				<section>
-					<p>Continuous Deployment requires a lot of infrastructure, tooling, and discipline</p>
-				</section>
-
-				<section>
-					<p>Continuous Deployment's not for everyone</p>
-				</section>
 			</section>
 
 			<section>
@@ -159,8 +157,11 @@
 				<section>
 					<p class="strong">Demo Setup</p>
 					<ul>
-						<li>Azure DevOps for Source Control</li>
-						<li>Cake build scripts</li>
+						<li>GitHub for Source Control</li>
+						<li><a href="https://cakebuild.net/" target="_blank">Cake</a> build scripts (<a
+								href="https://github.com/psake/psake" target="_blank">PSake</a>, <a
+								href="https://fake.build/" target="_blank">FAKE</a>, <a href="http://www.nuke.build/"
+								target="_blank">Nuke</a>)</li>
 						<li>Azure DevOps for Build Server</li>
 						<li>Octopus Deploy for Deploy Server</li>
 					</ul>
@@ -174,28 +175,16 @@
 			<section>
 				<p class="strong">Cake (C# Makefiles)</p>
 
-				<p><a href="https://octopus.com/blog/cake-build-scripts" target="_blank">Blog post about Cake</a></p>
+				<p><a href="https://dev.to/octopus/using-cake-build-scripts-for-your-net-core-web-apps-lab"
+						target="_blank">Blog post about Cake</a></p>
 				<p><a href="https://github.com/OctopusSamples/OctoPetShop/blob/master/build.cake"
-						target="_blank">OctoPetShop script
-						on GitHub</a></p>
+						target="_blank">OctoPetShop Cake file</a></p>
+				<p><a href="https://github.com/OctopusDeploy/OctopusClients/blob/master/build.cake"
+						target="_blank">OctopusClients Cake file</a></p>
 			</section>
 
 			<section>
 				<p class="strong">Enough slides, let's jump into the demo!</p>
-			</section>
-
-			<section>
-				<section>
-					<p class="strong">Why would you want to invest in your deployment pipeline?</p>
-				</section>
-
-				<section>
-					<p>Fewer errors during deployments</p>
-					<p>More confidence in making changes</p>
-					<p>Ability to make changes quicker</p>
-					<p>The same process applied to test and production environments</p>
-					<p>A happier team *</p>
-				</section>
 			</section>
 
 			<section>
